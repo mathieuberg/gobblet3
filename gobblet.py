@@ -170,6 +170,8 @@ def interpréteur_de_commande():
     parser = ArgumentParser(description= 'gobblet')
     parser.add_argument('IDUL', help = 'IDUL du joueur')
     parser.add_argument('-l', '--lister', help = 'lister les parties existantes')
+    parser.add_argument('-a', '--automatique', help = 'activer le mode automatique')
+
 
     # Complétez le code ici
     # vous pourriez aussi avoir à ajouter des arguments dans ArgumentParser(...)

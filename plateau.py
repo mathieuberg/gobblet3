@@ -51,10 +51,12 @@ class Plateau:
         return plateau
 
     def __str__(self):
-        
         plateau = self.plateau
-        for liste in plateau:
-            for car in plateau:
+        "Une méthode de conversion en chaîne de caractères,"
+        "où la chaîne produite est une représentation textuelle "
+        "du plateau, en utilisant le même format que pour "
+        "la phase 1 du projet."        
+
 
     def retirer_gobblet(self, no_colonne, no_ligne): 
         no_colonne = self.no_colonne
@@ -67,6 +69,13 @@ class Plateau:
             raise GobbletError('Le numéro de la ligne doit être 0, 1, 2 ou 3')
         if int(no_colonne)< 0 or int(no_colonne)>3:
                 raise GobbletError('Le numéro de la colonne doit être 0, 1, 2 ou 3')
+        else:
+            return self.plateau[no_colonne][no_ligne]
+
+    "Une méthode retirer_gobblet qui accepte en argument le numéro de colonne et le numéro de ligne de la case pour laquelle nous"
+    "voulons retirer un gobelet et retourne le Gobblet retiré du plateau si l'argument est valide. En cas d'erreur, cette "
+    "méthode soulève une exception de type GobbletError avec les messages spécifiés en docstring."
+
 
     def placer_gobblet(self, no_colonne, no_ligne, gobblet):
 
@@ -76,22 +85,17 @@ class Plateau:
             raise GobbletError('Le numéro de la ligne doit être 0, 1, 2 ou 3')
         if int(no_colonne)< 0 or int(no_colonne)>3:
                 raise GobbletError('Le numéro de la colonne doit être 0, 1, 2 ou 3')
-        """Placer un Gobblet dans le plateau
-
-        Args:
-            no_colonne (int): Numéro de la colonne (0, 1, 2 ou 3)
-            no_ligne (int): Numéro de la ligne (0, 1, 2 ou 3)
-            gobblet (Gobblet): Gobblet à placer dans le plateau
-
-        Raises:
-            GobbletError: Ligne et colonne doivent être des entiers
-            GobbletError: Le numéro de la ligne doit être 0, 1, 2 ou 3
-            GobbletError: Le numéro de la colonne doit être 0, 1, 2 ou 3
-            GobbletError: Le Gobblet ne peut pas être placé sur la case demandée
-        """
+        else:
+            gobbelet = self.plateau[no_colonne][no_ligne]
+            return gobbelet
     
-    
+    "Une méthode placer_gobblet qui accepte en argument le numéro de colonne et "
+    "le numéro de ligne représentant la case pour laquelle nous voulons placer un Gobblet et le Gobblet à placer "
+    "si les arguments sont valides. En cas d'erreur, cette méthode soulève une exception de type GobbletError avec les" 
+    "messages spécifiés en docstring."
+
     def état_plateau(self):
+        if self.plateau
         """Obtenir l'état du plateau
 
         Returns:

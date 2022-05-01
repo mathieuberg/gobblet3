@@ -6,7 +6,7 @@ Functions:
 
 from gobblet import Gobblet, GobbletError
 from plateau import Plateau
-
+import numpy as np
 
 class Joueur:
     """
@@ -66,15 +66,23 @@ class Joueur:
             raise GobbletError('Vous ne pouvez pas placer un gobelet à cet emplacement.')
         self.piles[no_pile] = gobelets
 
+#f
 
+    def état_joueur(self):
+        '  fsa  '
+        liste = []
+        for gobblet in self.piles:
+            liste.append([gobblet.no_joueur, gobblet.grosseur])
+        return {'nom': self.nom, 'piles': liste}
+
+class Automate(Joueur):
     def récupérer_le_coup(self, plateau):
         '   fas      '
-        print('Quel gobelet voulez-vous déplacer:')
-        ori = input('Donnez le numéro de la pile (p) ou la position sur le plateau (x,y): ').split(',')
-        dest = input('Où voulez-vous placer votre gobelet (x,y): ').split(',')
         liste = [3, 2, 1, 0]
-
-
+        for ori in range(0,1):
+            ori = int(np.random.choice(range(0,3), 1))
+        for dest in range(0,1):
+            dest = int(np.random.choice(range(0, 3), 1))
         try:
             ori = list(map(int, ori))
         except:
@@ -101,26 +109,5 @@ class Joueur:
             gob = self.piles[ori[0]]
             if gob.grosseur < plateau[liste[j]][i].grosseur:
                 raise GobbletError("La destination n'est pas une case valide du plateau.")
-
-            return ori[0], dest
-
         else:
-            x, y = ori
-            if len(ori) != 2:
-                raise GobbletError("L'origine doit être un entier ou une liste de 2 entiers.")
-            if x not in (0, 1, 2, 3) or y not in (0, 1, 2, 3):
-                raise GobbletError("L'origine n'est pas une case valide du plateau.")
-            if plateau[liste[y]][x].grosseur < plateau[liste[j]][i].grosseur:
-                raise GobbletError("La destination n'est pas une case valide du plateau.")
-            if not plateau[liste[y]][x]:
-                raise GobbletError("L'origine ne possède pas de gobelet.")
-            if self.no_joueur != plateau[liste[y]][x].no_joueur:
-                raise GobbletError("Le gobelet d'origine n'appartient pas au joueur.")
-            return ori, dest
-
-    def état_joueur(self):
-        '  fsa  '
-        liste = []
-        for gobblet in self.piles:
-            liste.append([gobblet.no_joueur, gobblet.grosseur])
-        return {'nom': self.nom, 'piles': liste}
+            
