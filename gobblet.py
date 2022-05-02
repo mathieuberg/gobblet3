@@ -172,7 +172,8 @@ def interpréteur_de_commande():
     parser.add_argument('-l', '--lister', help = 'lister les parties existantes')
     parser.add_argument('-a', '--automatique', help = 'activer le mode automatique')
 
-
+    args = parser.parse_args()
+    print(args.l)
     # Complétez le code ici
     # vous pourriez aussi avoir à ajouter des arguments dans ArgumentParser(...)
 
