@@ -31,13 +31,13 @@ class Plateau:
             plateau (list): Plateau tel que représenté dans l'énoncé
 
         Returns:
-            list: Plateau composé de liste de Gobblets ou None pour l'absence de Gobblet
+            list: Plateau composé de liste de Go
 
         Raises:
             GobbletError: Le plateau doit être une liste
             GobbletError: Le plateau ne possède pas le bon nombre de ligne
-            GobbletError: Le plateau ne possède pas le bon nombre de colonne dans les lignes
-            GobbletError: Les Gobblets doivent être des listes de paires ou une liste vide
+            GobbletError: Le plateau ne possèd"
+            GobbletError: Les Gobblets doivent être d"
         """
         if not isinstance(plateau, list):
             raise GobbletError("Le plateau doit être une liste")
@@ -54,16 +54,11 @@ class Plateau:
 
     def __str__(self):
         "Une méthode de conversion en chaîne de caractères,"
-        "où la chaîne produite est une représentation textuelle "
-        "du plateau, en utilisant le même format que pour "
-        "la phase 1 du projet."
         return self.formater_plateau(self.plateau)
 
 
-    def retirer_gobblet(self, no_colonne, no_ligne): 
-        "Une méthode retirer_gobblet qui accepte en argument le numéro de colonne et le numéro de ligne de la case pour laquelle nous"
-        "voulons retirer un gobelet et retourne le Gobblet retiré du plateau si l'argument est valide. En cas d'erreur, cette "
-        "méthode soulève une exception de type GobbletError avec les messages spécifiés en docstring."
+    def retirer_gobblet(self, no_colonne, no_ligne):
+        "Une méthode retirer_gobblet qui accepte en argument le numéro de colonne et le"
         no_colonne = self.no_colonne
         no_ligne = self.no_ligne
         if not isinstance(int, no_colonne) or not isinstance(int, no_ligne):
@@ -73,23 +68,19 @@ class Plateau:
         if int(no_ligne) < 0 or int(no_ligne) > 3:
             raise GobbletError('Le numéro de la ligne doit être 0, 1, 2 ou 3')
         if int(no_colonne) < 0 or int(no_colonne) > 3:
-                raise GobbletError('Le numéro de la colonne doit être 0, 1, 2 ou 3')
+            raise GobbletError('Le numéro de la colonne doit être 0, 1, 2 ou 3')
         else:
             return self.plateau[no_ligne][no_colonne].pop()
 
 
     def placer_gobblet(self, no_colonne, no_ligne, gobblet):
         "Une méthode placer_gobblet qui accepte en argument le numéro de colonne et "
-        "le numéro de ligne représentant la case pour laquelle nous voulons placer un Gobblet et le Gobblet à placer "
-        "si les arguments sont valides. En cas d'erreur, cette méthode soulève une exception de type GobbletError avec les" 
-        "messages spécifiés en docstring."
-
         if not isinstance(int,no_colonne) or not isinstance(int,no_ligne):
-             raise GobbletError('Ligne et colonne doivent être des entiers')
+            raise GobbletError('Ligne et colonne doivent être des entiers')
         if int(no_ligne) < 0 or int(no_ligne) > 3:
             raise GobbletError('Le numéro de la ligne doit être 0, 1, 2 ou 3')
         if int(no_colonne) < 0 or int(no_colonne) > 3:
-                raise GobbletError('Le numéro de la colonne doit être 0, 1, 2 ou 3')
+            raise GobbletError('Le numéro de la colonne doit être 0, 1, 2 ou 3')
         else:
             self.plateau[no_ligne][no_colonne].append(gobblet)
 
@@ -157,9 +148,9 @@ class Plateau:
             for j in range(4):
                 if len(self.plateau[i][j]) > 0:
                     car[i][j] = self.formater_un_gobblet([self.plateau[i][j][-1].joueur, self.plateau[i][j][-1].grosseur])
-                else: 
+                else:
                     car[i][j] = self.formater_un_gobblet([])
-            
+
         ligne1 = ('3 ' + car[0] +' | ' + car[1] + ' | ' + car[2] + ' | ' + car[3]) + '\n'
         ligne2 = (' ───┼───┼───┼───') + '\n'
         ligne3 = ('2 ' + car[4] +' | ' + car[5] + ' | ' + car[6] + ' | ' + car[7]) + '\n'
