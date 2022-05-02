@@ -106,6 +106,7 @@ class Joueur:
         return {'nom': self.nom, 'piles': liste}
 
     def valider_coup(self, ori, dest, plateau):
+        'das'
         try:
             ori = list(map(int, ori))
         except:
@@ -143,9 +144,10 @@ class Joueur:
             if self.no_joueur != plateau.plateau[i_ori][j_ori].no_joueur:
                 raise GobbletError("Le gobelet d'origine n'appartient pas au joueur.")
         return ori, dest
-        
+  
 
 class Automate(Joueur):
+    'dasads'
     def récupérer_le_coup(self, plateau):
         '   fas      '
         liste = [3, 2, 1, 0]
@@ -175,7 +177,7 @@ class Automate(Joueur):
                 raise GobbletError("L'origine n'est pas une pile valide.")
             if not self.piles[ori[0]]:
                 raise GobbletError("L'origine ne possède pas de gobelet.")
-            
+
             gob = self.piles[ori[0]]
             if gob.grosseur < plateau[liste[j]][i].grosseur:
                 raise GobbletError("La destination n'est pas une case valide du plateau.")
