@@ -66,7 +66,40 @@ class Joueur:
             raise GobbletError('Vous ne pouvez pas placer un gobelet à cet emplacement.')
         self.piles[no_pile] = gobelets
 
-#f
+    def récupérer_le_coup(self, plateau):
+        '   fas      '
+        print('Quel gobelet voulez-vous déplacer:')
+        ori = input('Donnez le numéro de la pile (p) ou la position sur le plateau (x,y): ').split(',')
+        dest = input('Où voulez-vous placer votre gobelet (x,y): ').split(',')
+
+        ori, dest = self.valider_coup(ori, dest, plateau)
+        try:
+            ori = list(map(int, ori))
+        except:
+            raise GobbletError("L'origine doit être un entier ou une liste de 2 entiers.")
+        try:
+            dest = list(map(int, dest))
+        except:
+            raise GobbletError("La destination doit être une liste de 2 entiers.")
+
+        if len(dest) != 2:
+            raise GobbletError("La destination doit être une liste de 2 entiers.")
+        
+        j_dest, i_dest = dest
+
+        if i_dest not in (0, 1, 2, 3) or j_dest not in (0, 1, 2, 3):
+            raise GobbletError("La destination n'est pas une case valide du plateau.")
+
+        # Gobblet pris de la pile
+        if len(ori) == 1:
+            pile = ori[0]
+            plateau.placer_gobblet(j_dest, i_dest, self.piles[pile].pop())
+        
+        # Goblet pris du plateau
+        else:
+            j_ori, i_ori = ori
+            plateau.placer_gobblet(j_dest, i_dest, plateau.plateau[i_ori][j_ori].pop())
+            
 
     def état_joueur(self):
         '  fsa  '
@@ -75,12 +108,57 @@ class Joueur:
             liste.append([gobblet.no_joueur, gobblet.grosseur])
         return {'nom': self.nom, 'piles': liste}
 
+    def valider_coup(self, ori, dest, plateau):
+        try:
+            ori = list(map(int, ori))
+        except:
+            raise GobbletError("L'origine doit être un entier ou une liste de 2 entiers.")
+        try:
+            dest = list(map(int, dest))
+        except:
+            raise GobbletError("La destination doit être une liste de 2 entiers.")
+
+        if len(dest) != 2:
+            raise GobbletError("La destination doit être une liste de 2 entiers.")
+        
+        j_dest, i_dest = dest
+
+        if i_dest not in (0, 1, 2, 3) or j_dest not in (0, 1, 2, 3):
+            raise GobbletError("La destination n'est pas une case valide du plateau.")
+
+        # Gobblet pris de la pile
+        if len(ori) == 1:
+            pile = ori[0]
+            if pile not in (0, 1, 2):
+                raise GobbletError("L'origine n'est pas une pile valide.")
+            if len(self.piles[pile]) == 0:
+                raise GobbletError("L'origine ne possède pas de gobelet.")
+            gobblet = self.piles[pile][-1]
+            if len(plateau.plateau[i_dest][j_dest]) > 0 and plateau.plateau[i_dest][j_dest][-1].grosseur >= gobblet.grosseur:
+                raise GobbletError("La destination n'est pas une case valide du plateau")
+        
+        # Goblet pris du plateau
+        else:
+            if len(ori) != 2:
+                raise GobbletError("L'origine doit être un entier ou une liste de 2 entiers.")
+            j_ori, i_ori = ori
+            if i_ori not in (0, 1, 2, 3) or j_ori not in (0, 1, 2, 3):
+                raise GobbletError("L'origine n'est pas une case valide du plateau.")
+            if plateau.plateau[i_ori][j_ori].grosseur < plateau.plateau[i_ori][j_ori].grosseur:
+                raise GobbletError("La destination n'est pas une case valide du plateau.")
+            if not plateau.plateau[i_ori][j_ori]:
+                raise GobbletError("L'origine ne possède pas de gobelet.")
+            if self.no_joueur != plateau.plateau[i_ori][j_ori].no_joueur:
+                raise GobbletError("Le gobelet d'origine n'appartient pas au joueur.")
+        return ori, dest
+        
+
 class Automate(Joueur):
     def récupérer_le_coup(self, plateau):
         '   fas      '
         liste = [3, 2, 1, 0]
         for ori in range(0,1):
-            ori = int(np.random.choice(range(0,3), 1))
+            ori = np.random.choice(range(0, 3), size=np.random.choice(range(2), 1), replace=False)
         for dest in range(0,1):
             dest = int(np.random.choice(range(0, 3), 1))
         try:
@@ -110,4 +188,5 @@ class Automate(Joueur):
             if gob.grosseur < plateau[liste[j]][i].grosseur:
                 raise GobbletError("La destination n'est pas une case valide du plateau.")
         else:
-            
+            if gob.grosseur > plateau[liste[j]][i].grosseur:
+                plateau[j][i].append()
