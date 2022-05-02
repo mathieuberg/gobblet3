@@ -84,7 +84,6 @@ class Joueur:
 
         if len(dest) != 2:
             raise GobbletError("La destination doit être une liste de 2 entiers.")
-        
         j_dest, i_dest = dest
 
         if i_dest not in (0, 1, 2, 3) or j_dest not in (0, 1, 2, 3):
@@ -94,12 +93,10 @@ class Joueur:
         if len(ori) == 1:
             pile = ori[0]
             plateau.placer_gobblet(j_dest, i_dest, self.piles[pile].pop())
-        
         # Goblet pris du plateau
         else:
             j_ori, i_ori = ori
             plateau.placer_gobblet(j_dest, i_dest, plateau.plateau[i_ori][j_ori].pop())
-            
 
     def état_joueur(self):
         '  fsa  '
@@ -117,15 +114,11 @@ class Joueur:
             dest = list(map(int, dest))
         except:
             raise GobbletError("La destination doit être une liste de 2 entiers.")
-
         if len(dest) != 2:
             raise GobbletError("La destination doit être une liste de 2 entiers.")
-        
         j_dest, i_dest = dest
-
         if i_dest not in (0, 1, 2, 3) or j_dest not in (0, 1, 2, 3):
             raise GobbletError("La destination n'est pas une case valide du plateau.")
-
         # Gobblet pris de la pile
         if len(ori) == 1:
             pile = ori[0]
@@ -136,7 +129,6 @@ class Joueur:
             gobblet = self.piles[pile][-1]
             if len(plateau.plateau[i_dest][j_dest]) > 0 and plateau.plateau[i_dest][j_dest][-1].grosseur >= gobblet.grosseur:
                 raise GobbletError("La destination n'est pas une case valide du plateau")
-        
         # Goblet pris du plateau
         else:
             if len(ori) != 2:
